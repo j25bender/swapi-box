@@ -14,59 +14,56 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const url = 'https://swapi.co/api/'
-
-    const peopleData = this.getPeople()
-    this.getData(url)
+    const planetData = this.getPlanets()
+    // const peopleData = this.getPeople()
     this.setState({
-      peopleData
+      // peopleData
+      planetData
     })
   }
 
-  getData = (url) => {
-    fetch(url)
-    .then(response => response.json())
-    .then(data => data)    
-  }
-
   getPeople = async () => {
-    const getPeopleData = await fetch('https://swapi.co/api/people/')
-    const cleanPeople = await getPeopleData.json()
+    const fetchPeopleData = await fetch('https://swapi.co/api/people/')
+    const cleanPeople = await fetchPeopleData.json()
     const mappedPeoples = cleanPeople.results.map( async (person) => {
       const name = person.name
-      const getHomeworld = await fetch(person.homeworld)
-      const cleanHomeworld = await getHomeworld.json()
+
+      const fetchHomeworld = await fetch(person.homeworld)
+      const cleanHomeworld = await fetchHomeworld.json()
       const homeworld = cleanHomeworld.name
       const worldPopulation = cleanHomeworld.population
+
       const fetchSpecies = await fetch(person.species)
       const cleanSpecies = await fetchSpecies.json()
       const speciesType = cleanSpecies.name
-      console.log(cleanSpecies.name)
+
       return { name, homeworld, worldPopulation, speciesType }
     })
     return Promise.all(mappedPeoples)
   }
 
-  // async componentDidMount () {
-  //   const initialFetch = await fetch('https://swapi.co/api/')
-  //   const { people } = await initialFetch.json()
-  //   const staff = await this.fetchData(people)
-  //   this.setState({ staff })
-  // }
-
-  // fetchData(arrayOfBios) {
-  //   const unresolvedPromises = arrayOfBios.map(async (staffMember) => {
-  //     let initialFetch = await fetch(staffMember.info)
-  //     let bio = await initialFetch.json()
-  //     return {...staffMember, ...bio}
-  //   })
-  //   return Promise.all(unresolvedPromises)
-  // }
+  getPlanets = async () => {
+    const fetchPlanetData = await fetch('https://swapi.co/api/planets/')
+    const cleanPlanets = await fetchPlanetData.json()
+    const mappedPlanets = cleanPlanets.results.map( async (planet) => {
+      const name = planet.name
+      const terrain = planet.terrain
+      const population = planet.population
+      const climate = planet.climate
+      console.log(planet.residents)
+      // const fetchResidents = await fetch(planet.residents)
+      // const cleanResidents = await fetchResidents.json()
+      // console.log(cleanResidents)
+      return { name, terrain, population, climate }
+    })
+    return Promise.all(mappedPlanets)
+  }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
      <Scroller />
+    //  <CardContainer peopleData={this.peopleData} />
     );
   }
 }
