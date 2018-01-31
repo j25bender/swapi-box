@@ -14,12 +14,28 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // const filmData = this.getFilms()
     const planetData = this.getPlanets()
     // const peopleData = this.getPeople()
     this.setState({
+      // filmData
       // peopleData
       planetData
     })
+  }
+
+  getFilms = async () => {
+    const fetchFilmData = await fetch('https://swapi.co/api/films/');
+    const cleanFilms = await fetchFilmData.json();
+    const filmMap = cleanFilms.results.map( async film => {
+      const title = film.title;
+      const episodeId = film.episode_id;
+      const openingCrawl = film.opening_crawl;
+      const releaseYear = film.release_date;
+
+      return { title, episodeId, openingCrawl, releaseYear }
+    });
+    return filmMap
   }
 
   getPeople = async () => {
@@ -34,7 +50,7 @@ class App extends Component {
       const worldPopulation = cleanHomeworld.population
 
       const fetchSpecies = await fetch(person.species)
-      const cleanSpecies = await fetchSpecies.json()
+      const cleanSpecies = await fetchSpecies.json()      
       const speciesType = cleanSpecies.name
 
       return { name, homeworld, worldPopulation, speciesType }
@@ -45,14 +61,26 @@ class App extends Component {
   getPlanets = async () => {
     const fetchPlanetData = await fetch('https://swapi.co/api/planets/')
     const cleanPlanets = await fetchPlanetData.json()
+          const allResidents = [];
     const mappedPlanets = cleanPlanets.results.map( async (planet) => {
       const name = planet.name
       const terrain = planet.terrain
       const population = planet.population
       const climate = planet.climate
-      console.log(planet.residents)
+      const getResidents = planet.residents.reduce( (accu, resident) => {
+        if(resident) {
+          accu.push(resident)
+        }
+        return accu
+      }, [])
+      allResidents.push(...getResidents)
+      console.log(allResidents)
+      
       // const fetchResidents = await fetch(planet.residents)
+      
       // const cleanResidents = await fetchResidents.json()
+      // console.log(cleanResidents)
+      
       // console.log(cleanResidents)
       return { name, terrain, population, climate }
     })
