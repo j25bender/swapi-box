@@ -8,38 +8,53 @@ class App extends Component {
 
     this.state = {
       cards: [],
-      favorites: []
+      favorites: [],
+      peopleData: []
     }
   }
 
   componentDidMount() {
+    const url = 'https://swapi.co/api/'
 
+    const peopleData = this.getPeople()
+    this.getData(url)
+    this.setState({
+      peopleData
+    })
   }
 
-  // componentDidMount() {
-  //   fetch('http://localhost:3001/api/frontend-staff')
-  //     .then(response => response.json())
-  //     .then(({ bio }) => this.fetchBios(bio))
-  //     .then(staff => this.setState({staff}))
-  // }
+  getData = (url) => {
+    fetch(url)
+    .then(response => response.json())
+    .then(data => data)    
+  }
 
-  // fetchBios(arrayOfBios) {
-  //   const unresolvedPromises = arrayOfBios.map(staffMember => {
-  //     return fetch(staffMember.info)
-  //             .then(data => data.json())
-  //             .then(bio => ({ ...staffMember, ...bio }))
-  //   })
-  //   return Promise.all(unresolvedPromises)
-  // }
+  getPeople = async () => {
+    const getPeopleData = await fetch('https://swapi.co/api/people/')
+    const cleanPeople = await getPeopleData.json()
+    const mappedPeoples = cleanPeople.results.map( async (person) => {
+      const name = person.name
+      const getHomeworld = await fetch(person.homeworld)
+      const cleanHomeworld = await getHomeworld.json()
+      const homeworld = cleanHomeworld.name
+      const worldPopulation = cleanHomeworld.population
+      const fetchSpecies = await fetch(person.species)
+      const cleanSpecies = await fetchSpecies.json()
+      const speciesType = cleanSpecies.name
+      console.log(cleanSpecies.name)
+      return { name, homeworld, worldPopulation, speciesType }
+    })
+    return Promise.all(mappedPeoples)
+  }
 
   // async componentDidMount () {
-  //   const initialFetch = await fetch('http://localhost:3001/api/frontend-staff')
-  //   const { bio } = await initialFetch.json()
-  //   const staff = await this.fetchBios(bio)
+  //   const initialFetch = await fetch('https://swapi.co/api/')
+  //   const { people } = await initialFetch.json()
+  //   const staff = await this.fetchData(people)
   //   this.setState({ staff })
   // }
 
-  // fetchBios(arrayOfBios) {
+  // fetchData(arrayOfBios) {
   //   const unresolvedPromises = arrayOfBios.map(async (staffMember) => {
   //     let initialFetch = await fetch(staffMember.info)
   //     let bio = await initialFetch.json()
@@ -49,6 +64,7 @@ class App extends Component {
   // }
 
   render() {
+    console.log(this.state)
     return (
      <Scroller />
     );

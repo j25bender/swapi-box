@@ -1,36 +1,25 @@
 body {
-  overflow: hidden;
-}
+  overflow: hidden; }
 
 .scrollText {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  width: 100vw;
   align-items: center;
   font-size: 75px;
-  background-image: url('../../images/star-background.jpg');
+  background-image: url("../../images/star-background.jpg");
   color: whitesmoke;
-  perspective: 400px;
-}
+  perspective: 500px; }
 
 .crawl {
   position: relative;
   top: -100px;
   transform-origin: 50% 100%;
-  animation: crawl 60s linear;
-}
+  animation: crawl 4s linear infinite; }
 
 @keyframes crawl {
   0% {
     top: 0;
-    /* Rotate the text 20 degrees but keep it close to the viewer */
-    transform: rotateX(20deg) translateZ(0);
-  }
-  100% { 
-    /* This is a magic number, but using a big one to make sure the text is fully off the screen at the end */
+    transform: rotateX(20deg) translateZ(0); }
+  100% {
     top: -6000px;
-    /* Slightly increasing the rotation at the end and moving the text far away from the viewer */
-    transform: rotateX(25deg) translateZ(-2500px);
-  }
-}
+    transform: rotateX(25deg) translateZ(-2500px); } }
