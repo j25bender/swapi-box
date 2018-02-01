@@ -29,10 +29,16 @@ class App extends Component {
     })
   }
 
+  fetchCleanData = async (url) => {
+    const fetchData = await fetch(url)
+    const cleanData = await fetchData.json()
+    return cleanData
+  }
+
   getFilms = async () => {
-    const fetchFilmData = await fetch('https://swapi.co/api/films/')
-    const cleanFilms = await fetchFilmData.json()
-    const mappedFilms = cleanFilms.results.map( async film => {
+    const cleanFilms = await this.fetchCleanData('https://swapi.co/api/films/')
+   
+    const mappedFilms = cleanFilms.results.map( async (film) => {
       const title = film.title
       const episodeId = film.episode_id
       const openingCrawl = film.opening_crawl
@@ -40,33 +46,30 @@ class App extends Component {
 
       return { title, episodeId, openingCrawl, releaseYear }
     })
-    return mappedFilms
+    return Promise.all(mappedFilms)
   }
 
   getPeople = async () => {
-    const fetchPeopleData = await fetch('https://swapi.co/api/people/')
-    const cleanPeople = await fetchPeopleData.json()
+    const cleanPeople = await this.fetchCleanData('https://swapi.co/api/people/')
+
     const mappedPeoples = cleanPeople.results.map( async (person) => {
       const name = person.name
 
-      const fetchHomeworld = await fetch(person.homeworld)
-      const cleanHomeworld = await fetchHomeworld.json()
-      const homeworld = cleanHomeworld.name
-      const worldPopulation = cleanHomeworld.population
-
-      const fetchSpecies = await fetch(person.species)
-      const cleanSpecies = await fetchSpecies.json()      
+      const homeworldData = await this.fetchCleanData(person.homeworld)
+      const homeworldName = homeworldData.name
+      const homeworldPop = homeworldData.population
+      
+      const cleanSpecies = await this.fetchCleanData(person.species)
       const speciesType = cleanSpecies.name
 
-      return { name, homeworld, worldPopulation, speciesType }
+      return { name, homeworldName, homeworldPop, speciesType }
     })
     return Promise.all(mappedPeoples)
   }
 
   getPlanets = async () => {    
-    const fetchPlanetData = await fetch('https://swapi.co/api/planets/')
-    const cleanPlanets = await fetchPlanetData.json()
-    
+    const cleanPlanets = await this.fetchCleanData('https://swapi.co/api/planets/')
+
     const mappedPlanets = cleanPlanets.results.map( async (planet) => {
       const name = planet.name
       const terrain = planet.terrain
@@ -75,8 +78,7 @@ class App extends Component {
       const allResidents = planet.residents
 
       let residents = allResidents.map( async (resident) => {
-        const fetchResidents = await fetch(resident)
-        const cleanResidents = await fetchResidents.json()
+        const cleanResidents = await this.fetchCleanData(resident)
         return cleanResidents.name
       })
       residents = await Promise.all(residents)
@@ -86,8 +88,7 @@ class App extends Component {
   }
 
   getVehicles = async () => {
-    const fetchVehicleData = await fetch('https://swapi.co/api/vehicles/')
-    const cleanVehicles = await fetchVehicleData.json()
+    const cleanVehicles = await this.fetchCleanData('https://swapi.co/api/vehicles/')
     const mappedVehicles = cleanVehicles.results.map( async (vehicle) => {
       const name = vehicle.name
       const model = vehicle.model
@@ -96,7 +97,7 @@ class App extends Component {
 
       return { name, model, passengers, vehicleClass }
     })
-    return mappedVehicles
+    return Promise.all(mappedVehicles)
   }
 
   render() {
