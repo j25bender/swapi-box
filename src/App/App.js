@@ -59,36 +59,31 @@ class App extends Component {
   }
 
   getPlanets = async () => {
+    const residents = [];
+    
     const fetchPlanetData = await fetch('https://swapi.co/api/planets/')
     const cleanPlanets = await fetchPlanetData.json()
-          const allResidents = [];
+    
     const mappedPlanets = cleanPlanets.results.map( async (planet) => {
       const name = planet.name
       const terrain = planet.terrain
       const population = planet.population
       const climate = planet.climate
-      const getResidents = planet.residents.reduce( (accu, resident) => {
-        if(resident) {
-          accu.push(resident)
-        }
-        return accu
-      }, [])
-      allResidents.push(...getResidents)
-      console.log(allResidents)
-      
-      // const fetchResidents = await fetch(planet.residents)
-      
-      // const cleanResidents = await fetchResidents.json()
-      // console.log(cleanResidents)
-      
-      // console.log(cleanResidents)
-      return { name, terrain, population, climate }
+      const allResidents = planet.residents
+
+      const residents = allResidents.map( async (resident) => {
+        const fetchResidents = await fetch(resident)
+        const cleanResidents = await fetchResidents.json()
+        return cleanResidents.name
+      })
+     
+      return { name, terrain, population, climate, residents }
     })
     return Promise.all(mappedPlanets)
   }
 
   render() {
-    // console.log(this.state)
+    console.log(this.state)
     return (
      <Scroller />
     //  <CardContainer peopleData={this.peopleData} />
