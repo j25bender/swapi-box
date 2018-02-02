@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom'
 import './App.css';
 import Scroller from './Scroller/Scroller'
+import Nav from './Controls/Controls'
 import getThatData from './apiCalls/apiCalls'
-import { Switch, Route } from 'react-router-dom'
 import CardContainer from './CardContainer/CardContainer'
 
 class App extends Component {
@@ -19,7 +20,7 @@ class App extends Component {
     }
   }
 
-  componentDidMount = async() => {
+  componentDidMount = async () => {
     const allData = new getThatData()
     const filmData = await allData.getFilms()
     const peopleData = await allData.getPeople()    
@@ -34,23 +35,27 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state)
-    return (
-      <div>
-        <Switch>
-          <Route exact path="/" component={ Scroller } /> 
-          <Route path="/people" render={ () => (
-            <CardContainer name="people" fetch={ this.state.peopleData } />
-           )} />
-           <Route path="/planet" render={ () => (
-            <CardContainer name="planet" fetch={ this.state.planetData } />
-           )} />
-           <Route path="/vehicle" render={ () => (
-            <CardContainer name="vehicle" fetch={ this.state.vehicleData } />
-           )} />
-        </Switch>
-      </div>
-    );
+    if(this.state.filmData) {
+      console.log(this.state)
+      return (
+        <div>
+          <Nav />
+          <Switch>
+            <Route exact path="/" component={ Scroller } /> 
+            <Route path="/people" render={ () => (
+              <CardContainer name="people" fetch={ this.state.peopleData } />
+             )} />
+             <Route path="/planet" render={ () => (
+              <CardContainer name="planet" fetch={ this.state.planetData } />
+             )} />
+             <Route path="/vehicle" render={ () => (
+              <CardContainer name="vehicle" fetch={ this.state.vehicleData } />
+             )} />
+          </Switch>
+        </div>
+      );
+    } 
+    return null
   }
 }
 

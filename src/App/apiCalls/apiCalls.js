@@ -9,12 +9,12 @@
         const cleanFilms = await this.fetchCleanData('https://swapi.co/api/films/')
 
         const mappedFilms = cleanFilms.results.map( async (film) => {
-            const title = film.title
+            const name = film.title
             const episodeId = film.episode_id
             const openingCrawl = film.opening_crawl
             const releaseYear = film.release_date
 
-            return { title, episodeId, openingCrawl, releaseYear }
+            return { name, episodeId, openingCrawl, releaseYear }
         })
         return Promise.all(mappedFilms)
     }
@@ -23,16 +23,16 @@
         const cleanPeople = await this.fetchCleanData('https://swapi.co/api/people/')
 
         const mappedPeoples = cleanPeople.results.map( async (person) => {
-            const name = person.name
+            const Name = person.name
 
             const homeworldNamePop = await this.getHomeNamePop(person.homeworld)
-            const homeworldName = homeworldNamePop.name
-            const homeworldPop = homeworldNamePop.population
+            const Homeworld = homeworldNamePop.name
+            const Population = homeworldNamePop.population
 
             const speciesName = await this.getSpecies(person.species)
-            const speciesType = speciesName.name
+            const Species = speciesName.name
 
-            return { name, homeworldName, homeworldPop, speciesType }
+            return { Name, Homeworld, Population, Species }
         })
         return Promise.all(mappedPeoples)
     }
@@ -49,14 +49,14 @@
         const cleanPlanets = await this.fetchCleanData('https://swapi.co/api/planets/')
 
         const mappedPlanets = cleanPlanets.results.map( async (planet) => {
-            const name = planet.name
-            const terrain = planet.terrain
-            const population = planet.population
-            const climate = planet.climate
+            const Name = planet.name
+            const Terrain = planet.terrain
+            const Population = planet.population
+            const Climate = planet.climate
 
-            const residents = await this.getResidents(planet.residents)
+            const Residents = await this.getResidents(planet.residents)
 
-            return { name, terrain, population, climate, residents }
+            return { Name, Terrain, Population, Climate, Residents }
         })
         return Promise.all(mappedPlanets)
     }
@@ -73,12 +73,12 @@
     getVehicles = async () => {
         const cleanVehicles = await this.fetchCleanData('https://swapi.co/api/vehicles/')
         const mappedVehicles = cleanVehicles.results.map( async (vehicle) => {
-            const name = vehicle.name
-            const model = vehicle.model
-            const passengers = vehicle.passengers
-            const vehicleClass = vehicle.vehicle_class
+            const Name = vehicle.name
+            const Model = vehicle.model
+            const Passengers = vehicle.passengers
+            const Class = vehicle.vehicle_class
 
-            return { name, model, passengers, vehicleClass }
+            return { Name, Model, Passengers, Class }
         })
         return Promise.all(mappedVehicles)
     }
