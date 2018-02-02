@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Scroller from './Scroller/Scroller'
 import getThatData from './apiCalls/apiCalls'
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom'
+import CardContainer from './CardContainer/CardContainer'
 
 class App extends Component {
   constructor() {
@@ -36,8 +37,18 @@ class App extends Component {
     console.log(this.state)
     return (
       <div>
-        <Scroller />
-        <CardContainer cards={this.state.cards} />
+        <Switch>
+          <Route exact path="/" component={ Scroller } /> 
+          <Route path="/people" render={ () => (
+            <CardContainer name="people" fetch={ this.state.peopleData } />
+           )} />
+           <Route path="/planet" render={ () => (
+            <CardContainer name="planet" fetch={ this.state.planetData } />
+           )} />
+           <Route path="/vehicle" render={ () => (
+            <CardContainer name="vehicle" fetch={ this.state.vehicleData } />
+           )} />
+        </Switch>
       </div>
     );
   }
