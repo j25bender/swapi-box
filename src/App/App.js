@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Scroller from './Scroller/Scroller'
 import getThatData from './apiCalls/apiCalls'
+import { Switch, Route } from 'react-router-dom';
 
 class App extends Component {
   constructor() {
@@ -34,8 +35,10 @@ class App extends Component {
   render() {
     console.log(this.state)
     return (
-     <Scroller />
-    //  <CardContainer peopleData={this.peopleData} />
+      <div>
+        <Scroller />
+        <CardContainer cards={this.state.cards} />
+      </div>
     );
   }
 }
