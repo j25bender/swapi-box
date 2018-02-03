@@ -7,30 +7,30 @@ const Scroller = () => {
         <article className="scrollText">
             <div className="crawl">
             <p>
-                It is a period of civil war.<br/>
-                Rebel spaceships, striking<br/>
-                from a hidden base, have won<br/>
-                their first victory against<br/>
+                It is a period of civil war.
+                Rebel spaceships, striking
+                from a hidden base, have won
+                their first victory against
                 the evil Galactic Empire.
             </p>
 
             <p>
-                During the battle, Rebel<br/>
-                spies managed to steal secret<br/>
-                plans to the Empire's<br/>
-                ultimate weapon, the DEATH<br/>
-                STAR, an armored space<br/>
-                station with enough power to<br/>
+                During the battle, Rebel
+                spies managed to steal secret
+                plans to the Empire's
+                ultimate weapon, the DEATH
+                STAR, an armored space
+                station with enough power to
                 destroy an entire planet.
             </p>
 
             <p>
-                Pursued by the Empire's<br/>
-                sinister agents, Princess<br/>
-                Leia races home aboard her<br/>
-                starship, custodian of the<br/>
-                stolen plan that can save<br/>
-                her people and restore<br/>
+                Pursued by the Empire's
+                sinister agents, Princess
+                Leia races home aboard her
+                starship, custodian of the
+                stolen plan that can save
+                her people and restore
                 freedom to the galaxy....
             </p>
             </div>
