@@ -34,16 +34,11 @@ class App extends Component {
   }
 
   selectCard = (cardData) => {
-    cardData.favorite = true
+    cardData.favorite = !cardData.favorite
     const favs = this.state.favorites
-    const noDupes = favs.find( fav => {
-      if(fav === cardData) {
-        
-      }})
-    noDupes.favorite = false
-    console.log('nope', noDupes)
-    const addNewCard = [...this.state.favorites, cardData]
-    this.setState({ favorites: addNewCard })
+    const noDupes = cardData.favorite === true ? [...favs, cardData] 
+                                               : favs.filter( fav => fav !== cardData)
+    this.setState({ favorites: noDupes })
   }
 
   render() {
@@ -54,7 +49,7 @@ class App extends Component {
           <Nav />
           <Switch>
             <Route exact path="/" render={ () => (
-              <Scroller fetch={ this.state.filmData} />
+              <Scroller fetch={ this.state.filmData } />
             )} />
             <Route path="/people" render={ () => (
               <CardContainer name="people" selectCard={this.selectCard} fetch={ this.state.peopleData } />
@@ -65,12 +60,15 @@ class App extends Component {
              <Route path="/vehicle" render={ () => (
               <CardContainer name="vehicle" selectCard={this.selectCard} fetch={ this.state.vehicleData } />
              )} />
+             <Route path="/favorite" render={ () => (
+              <CardContainer name="favorite" selectCard={this.selectCard} fetch={ this.state.favorites } />
+             )} />
           </Switch>
         </div>
-      );
+      )
     } 
     return null
   }
 }
 
-export default App;
+export default App
