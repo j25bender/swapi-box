@@ -2,11 +2,15 @@
   height: 100vh;
   overflow: hidden;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   background-image: url("../../images/star-background.jpg");
-  color: whitesmoke;
-  perspective: 500px; }
+  color: ghostwhite;
+  perspective: 500px;
+  font-size: 500%;
+  font-weight: 600;
+  text-align: justify; }
 
 .crawl {
   height: 60vh;
