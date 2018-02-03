@@ -1,0 +1,22 @@
+.card {
+  display: flex;
+  flex-flow: column wrap;
+  height: 200px;
+  width: 150px;
+  border: 1px solid lightslategrey;
+  text-align: center;
+  margin: 10px;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.3); }
+
+.card:hover {
+  border: 1px solid #3137e0;
+  box-shadow: 0 0 2px 2px #3137e0; }
+
+.card h6 {
+  color: lightslategrey;
+  margin: auto;
+  overflow: hidden; }
+
+.card span {
+  color: ghostwhite; }

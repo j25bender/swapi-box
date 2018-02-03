@@ -3,8 +3,9 @@ import { Switch, Route } from 'react-router-dom'
 import './App.css';
 import Scroller from './Scroller/Scroller'
 import Nav from './Controls/Controls'
-import getThatData from './apiCalls/apiCalls'
+import dataHelper from './apiCalls/apiCalls'
 import CardContainer from './CardContainer/CardContainer'
+const help = new dataHelper()
 
 class App extends Component {
   constructor() {
@@ -21,11 +22,10 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    const allData = new getThatData()
-    const filmData = await allData.getFilms()
-    const peopleData = await allData.getPeople()    
-    const planetData = await allData.getPlanets()
-    const vehicleData = await allData.getVehicles()
+    const filmData = await help.getFilms()
+    const peopleData = await help.getPeople()    
+    const planetData = await help.getPlanets()
+    const vehicleData = await help.getVehicles()
     await this.setState({
       filmData,
       peopleData,

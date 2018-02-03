@@ -1,4 +1,4 @@
- class getThatData {
+ class dataHelper {
     fetchCleanData = async (url) => {
         const fetchData = await fetch(url)
         const cleanData = await fetchData.json()
@@ -32,7 +32,10 @@
             const speciesName = await this.getSpecies(person.species)
             const Species = speciesName.name
 
-            return { Name, Homeworld, Population, Species }
+            const info = { Name, Homeworld, Population, Species }
+            const favorite = false
+
+            return { info, favorite }
         })
         return Promise.all(mappedPeoples)
     }
@@ -56,7 +59,10 @@
 
             const Residents = await this.getResidents(planet.residents)
 
-            return { Name, Terrain, Population, Climate, Residents }
+            const info = { Name, Terrain, Population, Climate, Residents }
+            const favorite = false
+
+            return { info, favorite }
         })
         return Promise.all(mappedPlanets)
     }
@@ -78,10 +84,13 @@
             const Passengers = vehicle.passengers
             const Class = vehicle.vehicle_class
 
-            return { Name, Model, Passengers, Class }
+            const info = { Name, Model, Passengers, Class }
+            const favorite = false
+
+            return { info, favorite }
         })
         return Promise.all(mappedVehicles)
     }
  }
 
-export default getThatData;
+export default dataHelper;
