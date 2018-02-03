@@ -12,7 +12,6 @@ class App extends Component {
     super();
 
     this.state = {
-      cards: [],
       favorites: [],
       filmData: [],      
       peopleData: [],
@@ -34,6 +33,19 @@ class App extends Component {
     })
   }
 
+  selectCard = (cardData) => {
+    cardData.favorite = true
+    const favs = this.state.favorites
+    const noDupes = favs.find( fav => {
+      if(fav === cardData) {
+        
+      }})
+    noDupes.favorite = false
+    console.log('nope', noDupes)
+    const addNewCard = [...this.state.favorites, cardData]
+    this.setState({ favorites: addNewCard })
+  }
+
   render() {
     if(this.state.filmData) {
       console.log(this.state)
@@ -45,13 +57,13 @@ class App extends Component {
               <Scroller fetch={ this.state.filmData} />
             )} />
             <Route path="/people" render={ () => (
-              <CardContainer name="people" fetch={ this.state.peopleData } />
+              <CardContainer name="people" selectCard={this.selectCard} fetch={ this.state.peopleData } />
              )} />
              <Route path="/planet" render={ () => (
-              <CardContainer name="planet" fetch={ this.state.planetData } />
+              <CardContainer name="planet" selectCard={this.selectCard} fetch={ this.state.planetData } />
              )} />
              <Route path="/vehicle" render={ () => (
-              <CardContainer name="vehicle" fetch={ this.state.vehicleData } />
+              <CardContainer name="vehicle" selectCard={this.selectCard} fetch={ this.state.vehicleData } />
              )} />
           </Switch>
         </div>
