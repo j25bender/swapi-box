@@ -41,7 +41,9 @@ class App extends Component {
         <div>
           <Nav />
           <Switch>
-            <Route exact path="/" component={ Scroller } /> 
+            <Route exact path="/" render={ () => (
+              <Scroller fetch={ this.state.filmData} />
+            )} />
             <Route path="/people" render={ () => (
               <CardContainer name="people" fetch={ this.state.peopleData } />
              )} />

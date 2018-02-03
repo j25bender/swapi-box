@@ -9,12 +9,11 @@
         const cleanFilms = await this.fetchCleanData('https://swapi.co/api/films/')
 
         const mappedFilms = cleanFilms.results.map( async (film) => {
-            const name = film.title
-            const episodeId = film.episode_id
             const openingCrawl = film.opening_crawl
+            const name = film.title            
             const releaseYear = film.release_date
 
-            return { name, episodeId, openingCrawl, releaseYear }
+            return [ openingCrawl, name, releaseYear ]
         })
         return Promise.all(mappedFilms)
     }
