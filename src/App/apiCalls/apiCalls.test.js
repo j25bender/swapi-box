@@ -28,7 +28,7 @@ describe('API Call Tests', () => {
         expect(helper.fetchCleanData(expectedParams)).resolves.toEqual({results: mockData.peopleData})
     })
 
-    it('throws an error when status in not ok', async () => {
+    it('throws an error when status is not ok', async () => {
         window.fetch = jest.fn().mockImplementation( () => {
             return Promise.reject({
                 ok: false,
@@ -71,13 +71,52 @@ describe('API Call Tests', () => {
         expect(peopleInfo).resolves.toEqual([{"favorite": false, "info": {"Homeworld": "Naboo", "Name": "Luke Skywalker", "Population": 4500000000, "Species": "Human"}}])
     })
 
-    it.skip('should clean planet data', async () => {
+    it('should receive an array of the correct number of residents', async () => {
+        window.fetch = jest.fn().mockImplementation(() => {
+            return Promise.resolve({
+                ok: true,
+                status: 200,
+                json: () => Promise.resolve({
+                    results: mockData.planetData
+                })
+            }) 
+        })
+        const planetInfo = await helper.getPlanets
+        (mockData.planetData)
+        const numResidents = planetInfo[0].info.Residents.length
+        expect(numResidents).toEqual(10)
+    })
+
+    it('should clean planet data', async () => {
+        window.fetch = jest.fn().mockImplementation(() => {
+            return Promise.resolve({
+                ok: true,
+                status: 200,
+                json: () => Promise.resolve({
+                    results: mockData.planetData
+                })
+            }) 
+        })
         helper.getResidents = async () => {
             return await ["Luke Skywalker"]
         }
         const planetInfo = helper.getPlanets
         (mockData.planetData)
-        
-        expect(planetInfo).toEqual([{}])
+        expect(planetInfo).resolves.toEqual([{"favorite": false, "info": {"Climate": "arid", "Name": "Tatooine", "Population": "200000", "Residents": ["Luke Skywalker"], "Terrain": "desert"}}])
+    })
+
+    it('should clean vehicle data', async () => {
+        window.fetch = jest.fn().mockImplementation(() => {
+            return Promise.resolve({
+                ok: true,
+                status: 200,
+                json: () => Promise.resolve({
+                    results: mockData.vehicleData
+                })
+            }) 
+        })
+        const vehicleData = helper.getVehicles
+        (mockData.vehicleData)
+        expect(vehicleData).resolves.toEqual([{"favorite": false, "info": {"Class": "wheeled", "Model": "Digger Crawler", "Name": "Sand Crawler", "Passengers": "30"}}])
     })
 })
