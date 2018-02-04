@@ -5,7 +5,7 @@ import Scroller from './Scroller/Scroller'
 import Nav from './Controls/Controls'
 import dataHelper from './apiCalls/apiCalls'
 import CardContainer from './CardContainer/CardContainer'
-const help = new dataHelper()
+const helper = new dataHelper()
 
 class App extends Component {
   constructor() {
@@ -21,10 +21,10 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    const filmData = await help.getFilms()
-    const peopleData = await help.getPeople()    
-    const planetData = await help.getPlanets()
-    const vehicleData = await help.getVehicles()
+    const filmData = await helper.getFilms()
+    const peopleData = await helper.getPeople()    
+    const planetData = await helper.getPlanets()
+    const vehicleData = await helper.getVehicles()
     await this.setState({
       filmData,
       peopleData,

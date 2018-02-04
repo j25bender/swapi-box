@@ -1,18 +1,22 @@
  class dataHelper {
     fetchCleanData = async (url) => {
-        const fetchData = await fetch(url)
-        const cleanData = await fetchData.json()
-        return cleanData
+        try {
+            const fetchData = await fetch(url)
+            const cleanData = await fetchData.json()
+            return cleanData
+        } catch(err) {
+            return 'Error'
+        }
     }
 
     getFilms = async () => {
         const cleanFilms = await this.fetchCleanData('https://swapi.co/api/films/')
 
-        const mappedFilms = cleanFilms.results.map( async (film) => {
+        const mappedFilms = 
+        cleanFilms.results.map( async (film) => {
             const openingCrawl = film.opening_crawl
             const name = film.title            
-            const releaseYear = film.release_date
-
+            const releaseYear = film.release_date         
             return [ openingCrawl, name, releaseYear ]
         })
         return Promise.all(mappedFilms)
@@ -20,7 +24,6 @@
 
     getPeople = async () => {
         const cleanPeople = await this.fetchCleanData('https://swapi.co/api/people/')
-
         const mappedPeoples = cleanPeople.results.map( async (person) => {
             const Name = person.name
 
@@ -30,7 +33,6 @@
 
             const speciesName = await this.getSpecies(person.species)
             const Species = speciesName.name
-
             const info = { Name, Homeworld, Population, Species }
             const favorite = false
 
@@ -49,15 +51,12 @@
 
     getPlanets = async () => {    
         const cleanPlanets = await this.fetchCleanData('https://swapi.co/api/planets/')
-
         const mappedPlanets = cleanPlanets.results.map( async (planet) => {
             const Name = planet.name
             const Terrain = planet.terrain
             const Population = planet.population
             const Climate = planet.climate
-
             const Residents = await this.getResidents(planet.residents)
-
             const info = { Name, Terrain, Population, Climate, Residents }
             const favorite = false
 
@@ -72,6 +71,7 @@
               return cleanResidents.name
             })
         const theResidents = residents
+        
         return Promise.all(theResidents)
     }
 
