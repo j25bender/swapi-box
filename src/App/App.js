@@ -60,7 +60,7 @@ class App extends Component {
              <Route path="/vehicle" render={ () => (
               <CardContainer name="vehicle" selectCard={this.selectCard} fetch={ this.state.vehicleData } />
              )} />
-             <Route path="/favorite/:${this.state.favorites}" render={ () => (
+             <Route path="/favorite/" render={ () => (
               <CardContainer name="favorite" selectCard={this.selectCard} fetch={ this.state.favorites } />
              )} />
           </Switch>
