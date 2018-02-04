@@ -3,9 +3,14 @@ import './Card.css'
 
 const Card = (props) => {
     if(props.data) {
-        const renderCards = Object.entries(props.data.info).map( (entry, index) => <h6 key={index}>{entry[0]}:  <span>{entry[1]}</span></h6> )
+        props.data.favorite
+        const renderCards = Object.entries(props.data.info).map( (entry, index) => {
+            return props.data.favorite ? <h6 className="selected" key={index}>{entry[0]}:  <span>{entry[1]}</span></h6> :
+                                         <h6 key={index}>{entry[0]}:  <span>{entry[1]}</span></h6>
+        })
+        
         return (
-            <div className="card">{ renderCards }</div>
+            <div className="card" onClick={ () => props.selectCard(props.data)}>{ renderCards }</div>
         )
     }
 }

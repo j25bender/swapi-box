@@ -6,7 +6,7 @@ const CardContainer = (props) => {
   return (
     <div className="cardContainer">
       {
-        props.fetch.map( (data, index) => <Card key={index} data={data} /> )
+        props.fetch.map( (data, index) => <Card key={index} data={data} selectCard={props.selectCard} /> )
       }
     </div>
   );

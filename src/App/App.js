@@ -5,14 +5,13 @@ import Scroller from './Scroller/Scroller'
 import Nav from './Controls/Controls'
 import dataHelper from './apiCalls/apiCalls'
 import CardContainer from './CardContainer/CardContainer'
-const help = new dataHelper()
+const helper = new dataHelper()
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      cards: [],
       favorites: [],
       filmData: [],      
       peopleData: [],
@@ -22,16 +21,24 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    const filmData = await help.getFilms()
-    const peopleData = await help.getPeople()    
-    const planetData = await help.getPlanets()
-    const vehicleData = await help.getVehicles()
+    const filmData = await helper.getFilms()
+    const peopleData = await helper.getPeople()    
+    const planetData = await helper.getPlanets()
+    const vehicleData = await helper.getVehicles()
     await this.setState({
       filmData,
       peopleData,
       planetData,
       vehicleData
     })
+  }
+
+  selectCard = (cardData) => {
+    cardData.favorite = !cardData.favorite
+    const favs = this.state.favorites
+    const noDupes = cardData.favorite === true ? [...favs, cardData] 
+                                               : favs.filter( fav => fav !== cardData)
+    this.setState({ favorites: noDupes })
   }
 
   render() {
@@ -41,22 +48,27 @@ class App extends Component {
         <div>
           <Nav />
           <Switch>
-            <Route exact path="/" component={ Scroller } /> 
+            <Route exact path="/" render={ () => (
+              <Scroller fetch={ this.state.filmData } />
+            )} />
             <Route path="/people" render={ () => (
-              <CardContainer name="people" fetch={ this.state.peopleData } />
+              <CardContainer name="people" selectCard={this.selectCard} fetch={ this.state.peopleData } />
              )} />
              <Route path="/planet" render={ () => (
-              <CardContainer name="planet" fetch={ this.state.planetData } />
+              <CardContainer name="planet" selectCard={this.selectCard} fetch={ this.state.planetData } />
              )} />
              <Route path="/vehicle" render={ () => (
-              <CardContainer name="vehicle" fetch={ this.state.vehicleData } />
+              <CardContainer name="vehicle" selectCard={this.selectCard} fetch={ this.state.vehicleData } />
+             )} />
+             <Route path="/favorite/:${this.state.favorites}" render={ () => (
+              <CardContainer name="favorite" selectCard={this.selectCard} fetch={ this.state.favorites } />
              )} />
           </Switch>
         </div>
-      );
+      )
     } 
     return null
   }
 }
 
-export default App;
+export default App
