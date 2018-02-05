@@ -12,9 +12,11 @@ describe('API Call Tests', () => {
             return Promise.resolve({
                 ok: true,
                 status: 200,
-                json: () => Promise.resolve({
-                    results: mockData.peopleData
-                })
+                json: () => {
+                    return Promise.resolve({
+                        results: mockData.peopleData
+                    })
+                }
             }) 
         })
     })
@@ -32,11 +34,15 @@ describe('API Call Tests', () => {
         window.fetch = jest.fn().mockImplementation( () => {
             return Promise.reject({
                 ok: false,
-                status: 404,
-                json: () => Promise.reject('Error')
+                status: 404
             }) 
         })
-        const error = await helper.fetchCleanData()
+        try {
+            const error = await helper.fetchCleanData()
+        }
+        catch(err) {
+            expect(err).toEqual((Error('Error')))
+        }
     })
 
     it('should clean film data', () => {
@@ -44,9 +50,11 @@ describe('API Call Tests', () => {
             return Promise.resolve({
                 ok: true,
                 status: 200,
-                json: () => Promise.resolve({
-                    results: mockData.movieData
-                })
+                json: () => {
+                    return Promise.resolve({
+                        results: mockData.movieData
+                    })
+                }
             }) 
         })
         const filmText = helper.getFilms(mockData.movieData)
@@ -58,9 +66,11 @@ describe('API Call Tests', () => {
             return Promise.resolve({
                 ok: true,
                 status: 200,
-                json: () => Promise.resolve({
-                    results: mockData.peopleData
-                })
+                json: () => {
+                    return Promise.resolve({
+                        results: mockData.peopleData
+                    })
+                }
             }) 
         })
         helper.getHomeNamePop = async () => {
@@ -76,9 +86,11 @@ describe('API Call Tests', () => {
             return Promise.resolve({
                 ok: true,
                 status: 200,
-                json: () => Promise.resolve({
-                    results: mockData.planetData
-                })
+                json: () => {
+                    return Promise.resolve({
+                        results: mockData.planetData
+                    })
+                }
             }) 
         })
         const planetInfo = await helper.getPlanets
@@ -92,9 +104,11 @@ describe('API Call Tests', () => {
             return Promise.resolve({
                 ok: true,
                 status: 200,
-                json: () => Promise.resolve({
-                    results: mockData.planetData
-                })
+                json: () => {
+                    return Promise.resolve({
+                        results: mockData.planetData
+                    })
+                }
             }) 
         })
         helper.getResidents = async () => {
@@ -110,9 +124,11 @@ describe('API Call Tests', () => {
             return Promise.resolve({
                 ok: true,
                 status: 200,
-                json: () => Promise.resolve({
-                    results: mockData.vehicleData
-                })
+                json: () => {
+                    return Promise.resolve({
+                        results: mockData.vehicleData
+                    })
+                }
             }) 
         })
         const vehicleData = helper.getVehicles

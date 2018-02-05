@@ -5,7 +5,7 @@
             const cleanData = await fetchData.json()
             return cleanData
         } catch(err) {
-            return 'Error'
+            throw new Error('Error')
         }
     }
 
