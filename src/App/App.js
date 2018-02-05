@@ -43,10 +43,9 @@ class App extends Component {
 
   render() {
     if(this.state.filmData) {
-      console.log(this.state)
       return (
         <div>
-          <Nav />
+          <Nav favs={this.state.favorites.length} />
           <Switch>
             <Route exact path="/" render={ () => (
               <Scroller fetch={ this.state.filmData } />
