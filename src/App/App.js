@@ -37,7 +37,6 @@ class App extends Component {
   }
 
   selectCard = (cardData) => {
-    console.log(cardData)
     cardData.favorite = !cardData.favorite
     const favs = this.state.favorites
     const noDupes = cardData.favorite === true ? [...favs, cardData] 
