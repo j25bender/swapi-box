@@ -62,5 +62,6 @@ describe('App', () => {
       wrapper.instance().selectCard(cardData)
       expect(wrapper.state().favorites).toEqual([cardData])
     })
+    
 })
 

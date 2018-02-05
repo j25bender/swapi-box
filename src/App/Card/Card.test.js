@@ -21,4 +21,5 @@ describe('Card', () => {
         
         expect(wrapper).toMatchSnapshot()
     })
+    
 })
