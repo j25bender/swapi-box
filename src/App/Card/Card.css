@@ -21,7 +21,7 @@
 .card span {
   color: ghostwhite; }
 
-.selected {
-  display: list-item;
-  list-style-type: disc;
-  list-style-position: inside; }
+img {
+  max-height: 10px;
+  max-width: 10px;
+  padding-right: 5px; }

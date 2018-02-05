@@ -22,14 +22,17 @@ class App extends Component {
 
   componentDidMount = async () => {
     const filmData = await helper.getFilms()
-    const peopleData = await helper.getPeople()    
-    const planetData = await helper.getPlanets()
-    const vehicleData = await helper.getVehicles()
     await this.setState({
-      filmData,
-      peopleData,
-      planetData,
-      vehicleData
+      filmData
+    }, async () => {
+      const peopleData = await helper.getPeople()    
+      const planetData = await helper.getPlanets()
+      const vehicleData = await helper.getVehicles()
+      await this.setState({
+        peopleData,
+        planetData,
+        vehicleData
+      })
     })
   }
 
