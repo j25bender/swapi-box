@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Scroller matches the snapshot 1`] = `
+ReactWrapper {
+  "length": 1,
+  Symbol(enzyme.__unrendered__): <Scroller
+    fetch={
+        Array [
+            "It is a dark time for the Rebellion.",
+            "The Empire Strikes Back",
+            "1980-05-17",
+          ]
+    }
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "fetch": Array [
+        "It is a dark time for the Rebellion.",
+        "The Empire Strikes Back",
+        "1980-05-17",
+      ],
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": <article
+        class="scrollText"
+>
+        <div
+                class="crawl"
+        >
+                <h5 />
+        </div>
+</article>,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="crawl"
+>
+          <h5 />
+</div>,
+        "className": "scrollText",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": <div
+            class="crawl"
+>
+            <h5 />
+</div>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <h5 />,
+            "className": "crawl",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": <h5 />,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": undefined,
+              },
+              "ref": null,
+              "rendered": Array [
+                undefined,
+              ],
+              "type": "h5",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "article",
+    },
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "fetch": Array [
+          "It is a dark time for the Rebellion.",
+          "The Empire Strikes Back",
+          "1980-05-17",
+        ],
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": <article
+          class="scrollText"
+>
+          <div
+                    class="crawl"
+          >
+                    <h5 />
+          </div>
+</article>,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="crawl"
+>
+            <h5 />
+</div>,
+          "className": "scrollText",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": <div
+              class="crawl"
+>
+              <h5 />
+</div>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <h5 />,
+              "className": "crawl",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": <h5 />,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": undefined,
+                },
+                "ref": null,
+                "rendered": Array [
+                  undefined,
+                ],
+                "type": "h5",
+              },
+            ],
+            "type": "div",
+          },
+        ],
+        "type": "article",
+      },
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
